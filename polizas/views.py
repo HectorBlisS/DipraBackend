@@ -20,3 +20,4 @@ class OwnerMixin(object):
 class PolizaViewset(OwnerMixin, viewsets.ModelViewSet):
 	queryset = Poliza.objects.all()
 	serializer_class = PolizaSerializer
+	permission_classes = (permissions.IsAuthenticated,)

@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import LoginView, LogoutView
+from .views import LoginView, LogoutView, ProfileViewset
 from rest_framework.authtoken import views
 
 
@@ -12,5 +12,5 @@ urlpatterns = [
 		LogoutView.as_view()),
 
 	url(r'^token-auth/', views.obtain_auth_token)
-
+	
 	]

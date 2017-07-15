@@ -4,11 +4,13 @@ from main import urls as mainURLs
 from rest_framework import routers
 from polizas.views import PolizaViewset
 from accounts import urls as accountsURLs
+from accounts.views import ProfileViewset
 
 
 
 router = routers.DefaultRouter()
 router.register(r'polizas', PolizaViewset)
+router.register(r'profiles', ProfileViewset)
 
 
 urlpatterns = [

@@ -8,6 +8,10 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+from .models import Profile
+from rest_framework.response import Response
+
+
 
 
 class isSelfOrAdmin(permissions.BasePermission):
@@ -59,3 +63,32 @@ class ProfileViewset(viewsets.ModelViewSet):
 		return super(ProfileViewset, self).get_permissions()
 
 
+class SelfProfile(views.APIView):
+	permission_classes = [permissions.IsAuthenticated,]
+
+	def get(self, request):
+		profile, created = Profile.objects.get_or_create(user=request.user)
+		# serializer = ProfileSerializer(profile, many=False)
+		# return Response(serializer.data)
+
+		serializer = UserSerializer(request.user)
+		return Response(serializer.data)
+
+	def post(self, request):
+		profile, created = Profile.objects.get_or_create(user=request.user)
+		# serializer = ProfileSerializer(profile, many=False)
+		# return Response(serializer.data)
+
+		print(request.data['photo'])
+
+		if request.data['photo']:
+			profile.photo = request.data['photo']
+			profile.save()
+
+		# if request.data['uid']:
+		# 	profile.uid = request.data['uid']
+		# 	profile.save()
+		
+
+		serializer = UserSerializer(request.user)
+		return Response(serializer.data)

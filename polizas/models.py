@@ -1,9 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Poliza(models.Model):
 	
-
+	asesor = models.ForeignKey(User, related_name="asesor_poliza", blank=True, null=True)
+	fecha_poliza = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
 	tpersona = models.CharField(max_length=150, blank=True, null=True)
 	ecivil = models.CharField(max_length=150, blank=True, null=True)
 	genero = models.CharField(max_length=150, blank=True, null=True)
@@ -54,4 +56,4 @@ class Poliza(models.Model):
 	bhonorarios = models.CharField(max_length=150, blank=True, null=True)
 
 	def __str__(self):
-		return self.id
+		return 'Poliza #{}'.format(self.id)

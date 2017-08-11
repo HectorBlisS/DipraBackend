@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from main.utils import welcome_mail
 
 
 
@@ -36,3 +36,8 @@ from rest_framework.authtoken.models import Token
 def create_auth_token(sender, instance=None, created=False, **kwargs):
 	if created:
 		Token.objects.create(user=instance)
+	try:
+		print("exito mijo")
+		welcome_mail(username=instance.username, email=instance.email)
+	except:
+		print("error mail")

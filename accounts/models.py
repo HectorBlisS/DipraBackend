@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from main.utils import welcome_mail
-from main.tasks import mail_welcome
+# from main.utils import welcome_mail
+from main.tasks import bienvenida
 
 
 
@@ -36,7 +36,8 @@ from rest_framework.authtoken.models import Token
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        mail_welcome.delay(username=instance.username, email=instance.email)
+        print('llamando task')
+        bienvenida.delay(username=instance.username, email=instance.email)
     # try:
     #     print("Enviando bienvenida")
     #     welcome_mail(username=instance.username, email=instance.email)

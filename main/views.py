@@ -16,7 +16,7 @@ class HomeView(View):
 
 
 
-# Mailing
+# Mailing pending
 
 class WelcomeMail(APIView):
 	def get(self, request):

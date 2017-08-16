@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Poliza(models.Model):
-	
-	asesor = models.ForeignKey(User, related_name="asesor_poliza", blank=True, null=True)
+class Cliente(models.Model):
+	user=models.OneToOneField(User, related_name="usuario",blank=True,null=True)
+	asesor = models.ForeignKey(User, related_name="cliente_asesor", blank=True, null=True)
+	idcliente=models.CharField(max_length=150, null=True, blank=True)
 	fecha_poliza = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
 	tpersona = models.CharField(max_length=150, blank=True, null=True)
 	ecivil = models.CharField(max_length=150, blank=True, null=True)
@@ -36,13 +37,15 @@ class Poliza(models.Model):
 	estado = models.CharField(max_length=150, blank=True, null=True)
 	telefono = models.CharField(max_length=150, blank=True, null=True)
 	correo = models.CharField(max_length=150, blank=True, null=True)
+	ocupacion = models.CharField(max_length=150, blank=True, null=True)
+	otraoc = models.CharField(max_length=150, blank=True, null=True)
 	fmercantil = models.CharField(max_length=150, blank=True, null=True)
-	micargo = models.CharField(max_length=150, blank=True, null=True)
-	fcargo = models.CharField(max_length=150, blank=True, null=True)
-	sucargo = models.CharField(max_length=150, blank=True, null=True)
-	fsucargo = models.CharField(max_length=150, blank=True, null=True)
-	parentesco = models.CharField(max_length=150, blank=True, null=True)
-	familiar = models.CharField(max_length=150, blank=True, null=True)
+	# micargo = models.CharField(max_length=150, blank=True, null=True)
+	# fcargo = models.CharField(max_length=150, blank=True, null=True)
+	# sucargo = models.CharField(max_length=150, blank=True, null=True)
+	# fsucargo = models.CharField(max_length=150, blank=True, null=True)
+	# parentesco = models.CharField(max_length=150, blank=True, null=True)
+	# familiar = models.CharField(max_length=150, blank=True, null=True)
 	honorarios = models.CharField(max_length=150, blank=True, null=True)
 	institucion = models.CharField(max_length=150, blank=True, null=True)
 	aempresarial = models.CharField(max_length=150, blank=True, null=True)
@@ -54,6 +57,73 @@ class Poliza(models.Model):
 	parpublico = models.CharField(max_length=150, blank=True, null=True)
 	asalariado = models.CharField(max_length=150, blank=True, null=True)
 	bhonorarios = models.CharField(max_length=150, blank=True, null=True)
+	observaciones = models.TextField(blank=True, null=True)
 
 	def __str__(self):
-		return 'Poliza #{}'.format(self.id)
+		return 'Cliente #{}'.format(self.id)
+
+
+class Poliza(models.Model):
+
+	asesor = models.ForeignKey(User, related_name="asesor_poliza", blank=True, null=True)
+	addaddress = models.BooleanField(blank=True, default=False)
+	agrupacion = models.CharField(max_length=150, blank=True, null=True)
+	apertura = models.CharField(max_length=150, blank=True, null=True)
+	cis = models.CharField(max_length=150, blank=True, null=True)
+	cliente = models.ForeignKey(Cliente, related_name='poliza_cliente', blank=True, null=True)
+	daños = models.CharField(max_length=150, blank=True, null=True)
+	empresa = models.CharField(max_length=150, blank=True, null=True)
+	financiamiento = models.CharField(max_length=150, blank=True, null=True)
+	idpoliza = models.CharField(max_length=150, blank=True, null=True)
+	importe = models.CharField(max_length=150, blank=True, null=True)
+	newaddress = models.CharField(max_length=150, blank=True, null=True)
+	next = models.CharField(max_length=150, blank=True, null=True)
+	pago = models.CharField(max_length=150, blank=True, null=True)
+	prima = models.CharField(max_length=150, blank=True, null=True)
+	sector = models.CharField(max_length=150, blank=True, null=True)
+	subrama = models.CharField(max_length=150, blank=True, null=True)
+	modalidad = models.CharField(max_length=150, blank=True, null=True)
+	last = models.CharField(max_length=150, blank=True, null=True)
+	def __str__(self):
+		return '{}Poliza #{}'.format(self.id, self.idpoliza)
+
+class Recibo(models.Model):
+	poliza = models.ForeignKey(Poliza, related_name="recibo_poliza", blank=True, null=True)
+	fecha = models.CharField(max_length=100, blank=True, null=True)
+	numero = models.CharField(max_length=100, blank=True, null=True)
+	pagado = models.BooleanField(default=False, blank=True)
+	prima_neta = models.CharField(max_length=100, blank=True, null=True)
+	prima_total = models.CharField(max_length=100, blank=True, null=True)
+	descuento = models.CharField(max_length=100, blank=True, null=True)
+	derechos = models.CharField(max_length=100, blank=True, null=True)
+	iva = models.CharField(max_length=100, blank=True, null=True)
+	pago_frac = models.CharField(max_length=100, blank=True, null=True)
+	def __str__(self):
+		return 'Recibo {} de poliza {}'.format(self.id, self.poliza)
+
+
+class Vehiculo(models.Model):
+
+	poliza = models.ForeignKey(Poliza, related_name="vehiculos",blank=True, null=True)
+	clavet = models.CharField(max_length=150, blank=True, null=True)
+	marca = models.CharField(max_length=150, blank=True, null=True)
+	modelo = models.CharField(max_length=150, blank=True, null=True)
+	puertas = models.CharField(max_length=150, blank=True, null=True)
+	ocupantes = models.CharField(max_length=150, blank=True, null=True)
+	placa = models.CharField(max_length=150, blank=True, null=True)
+	serie = models.CharField(max_length=150, blank=True, null=True)
+	motor = models.CharField(max_length=150, blank=True, null=True)
+	color = models.CharField(max_length=150, blank=True, null=True)
+	repuve = models.CharField(max_length=150, blank=True, null=True)
+	servicio = models.CharField(max_length=150, blank=True, null=True)
+	uso = models.CharField(max_length=150, blank=True, null=True)
+	origen = models.CharField(max_length=150, blank=True, null=True)
+	conductor = models.CharField(max_length=150, blank=True, null=True)
+	prima_neta = models.CharField(max_length=150, blank=True, null=True)
+	prima_total = models.CharField(max_length=150, blank=True, null=True)
+	adaptaciones = models.CharField(max_length=150, blank=True, null=True)
+	status = models.CharField(max_length=150, blank=True, null=True)
+	alta = models.CharField(max_length=150, blank=True, null=True)
+
+	def __str__(self):
+		return 'vehiculo {}'.format(self.id)

@@ -1,9 +1,12 @@
 from django.conf.urls import url
-from .views import LoginView, LogoutView, ProfileViewset
+from .views import SelfProfile, LoginView, LogoutView, ProfileViewset
 from rest_framework.authtoken import views
 
 
 urlpatterns = [
+
+	url(r'^myprofile/$',
+    	SelfProfile.as_view()),
 
 	url(r'^login/$',
 		LoginView.as_view()),

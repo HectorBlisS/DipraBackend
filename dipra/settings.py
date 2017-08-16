@@ -134,12 +134,19 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Heroku
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+
+# AWS
 STATIC_URL = '/static/'
+# STATICFILES_DIRS = (os.path.join(BASE_DIR,"static"),)
+# STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 
@@ -156,3 +163,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+
+# Correo electronico
+EMAIL_HOST = 'p3plcpnl0061.prod.phx3.secureserver.net'
+# EMAIL_HOST='smtp.gmail.com'
+# EMAIL_PORT = '587'
+EMAIL_PORT='465'
+EMAIL_HOST_USER = 'admin@fixter.org'
+# EMAIL_HOST_USER = 'tterrenofacil@gmail.com'
+EMAIL_HOST_PASSWORD = 'Poweroso77'
+# EMAIL_HOST_PASSWORD = 'Miguel741010'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL=False

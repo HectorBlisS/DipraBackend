@@ -1,8 +1,13 @@
+amqp==1.4.9
+anyjson==0.3.3
+billiard==3.3.0.23
+celery==3.1.18
 dj-database-url==0.4.2
 Django==1.11.2
 django-cors-headers==2.1.0
 djangorestframework==3.6.3
 gunicorn==19.7.1
+kombu==3.0.37
 olefile==0.44
 Pillow==4.2.1
 psycopg2==2.7.1

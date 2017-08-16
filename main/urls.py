@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-	url(r'^$', views.HomeView.as_view(), name="home")
+	url(r'^$', views.HomeView.as_view(), name="home"),
+	url(r'^mail/$', views.WelcomeMail.as_view(), name="mail")
 ]

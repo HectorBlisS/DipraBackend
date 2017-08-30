@@ -30,6 +30,8 @@ class PolizaViewset(OwnerMixin, viewsets.ModelViewSet):
 class PolizaList(OwnerMixin, viewsets.ModelViewSet):
     queryset = Poliza.objects.all()
     serializer_class=PolizaRelatedSerializer
+    permission_classes = [permissions.IsAuthenticated,]
+
 
 class VehiculoViewset(viewsets.ModelViewSet):
     queryset = Vehiculo.objects.all()

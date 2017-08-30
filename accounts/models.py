@@ -17,10 +17,12 @@ class Profile(models.Model):
 	)
 	user = models.OneToOneField(User, related_name='profile')
 	photo = models.URLField(max_length=500, blank=True, null=True)
-	tipo = models.CharField(max_length=100, choices=TIPOS, default="cliente" )
+	tipo = models.CharField(max_length=100, choices=TIPOS, default="general" )
 	asesorId = models.CharField(max_length=100, blank=True, null=True)
 	clienteId = models.CharField(max_length=100, blank=True, null=True)
 	aprobado = models.BooleanField(default=False)
+
+
 	def __str__(self):
 		return self.user.username
 

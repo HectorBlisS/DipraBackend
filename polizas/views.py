@@ -3,8 +3,8 @@ from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.generics import ListAPIView
 from django.contrib.auth.models import User
-from .serializers import PolizaSerializer, ClienteSerializer, PolizaRelatedSerializer, VehiculoSerializer, VehiculoSerializer2, ReciboSerializer
-from .models import Poliza, Cliente, Vehiculo, Recibo
+from .serializers import PolizaSerializer, ClienteSerializer, PolizaRelatedSerializer, VehiculoSerializer, VehiculoSerializer2, ReciboSerializer, ProspectSerializer
+from .models import Poliza, Cliente, Vehiculo, Recibo, Prospecto
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -64,4 +64,8 @@ class ClienteViewset(OwnerMixin, viewsets.ModelViewSet):
 class ReciboViewset(viewsets.ModelViewSet):
     queryset = Recibo.objects.all()
     serializer_class = ReciboSerializer
+
+class ProspectoViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Prospecto.objects.all()
+    serializer_class = ProspectSerializer
 

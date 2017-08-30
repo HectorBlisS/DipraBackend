@@ -2,9 +2,10 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from main import urls as mainURLs
 from rest_framework import routers
-from polizas.views import PolizaViewset, ClienteViewset, PolizaList, VehiculoViewset, VehiculosPoliza, PolizasCliente, ReciboViewset
+from polizas.views import PolizaViewset, ClienteViewset, PolizaList, VehiculoViewset, VehiculosPoliza, PolizasCliente, ReciboViewset, ProspectoViewset
 from accounts import urls as accountsURLs
 from accounts.views import ProfileViewset, AsesoresList, PerfilesViewSet, match_client
+from asesores.views import AsesorViewset, AsesorViewsetList
 
 
 
@@ -16,6 +17,9 @@ router.register(r'profiles', ProfileViewset)
 router.register(r'policys', PolizaList)
 router.register(r'vehicles', VehiculoViewset)
 router.register(r'perfiles',PerfilesViewSet)
+router.register(r'prospectos', ProspectoViewset)
+router.register(r'candidatos', AsesorViewset)
+router.register(r'candidatoslist', AsesorViewsetList)
 
 
 urlpatterns = [

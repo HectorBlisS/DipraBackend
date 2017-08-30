@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'main',
     'polizas',
-    'accounts'
+    'accounts', 
+    'asesores'
 
 ]
 

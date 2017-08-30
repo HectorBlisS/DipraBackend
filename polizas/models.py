@@ -1,6 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Prospecto(models.Model):
+	asesor = models.ForeignKey(User, related_name="prospecto_asesor", blank=True, null=True)
+	nombre = models.CharField(max_length=100)
+	telefono = models.CharField(max_length=100)
+	prod1 = models.CharField(max_length=100) 
+	prod2 = models.CharField(max_length=100)
+	comentarios = models.TextField()
+
+	def __str__(self):
+		return self.nombre
+
 
 class Cliente(models.Model):
 	user=models.OneToOneField(User, related_name="usuario",blank=True,null=True)
@@ -127,3 +138,4 @@ class Vehiculo(models.Model):
 
 	def __str__(self):
 		return 'vehiculo {}'.format(self.id)
+

@@ -117,6 +117,7 @@ def match_client(request):
 		print(request.user)
 		cliente = Cliente.objects.get(idcliente=request.data['clienteId'])
 		cliente.user = request.user
+		
 		cliente.save()
 		
 

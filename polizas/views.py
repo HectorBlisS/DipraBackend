@@ -44,7 +44,8 @@ class VehiculosPoliza(ListAPIView):
     def get_queryset(self):
         print(self.request.data)
         print(self.kwargs['id'])
-        poliza=Poliza.objects.get(id=self.kwargs['id'])
+        poliza=Poliza.objects.get_or_create(id=self.kwargs['id'])
+        print(poliza);
         qs = super(VehiculosPoliza, self).get_queryset()        
         return qs.filter(poliza=poliza)
 

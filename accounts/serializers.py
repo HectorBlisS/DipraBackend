@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 	profile = ProfileSerializer(many=False, read_only=True)
-	# cliente_asesor=ClienteSerializer2(many=True, )
+	cliente_asesor=ClienteSerializer2(many=True, read_only=True)
 	usuario=ClienteSerializer2(read_only=True)
 	class Meta:
 		model = User

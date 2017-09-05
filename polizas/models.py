@@ -16,7 +16,7 @@ class Prospecto(models.Model):
 class Cliente(models.Model):
 	user=models.OneToOneField(User, related_name="usuario",blank=True,null=True)
 	asesor = models.ForeignKey(User, related_name="cliente_asesor", blank=True, null=True)
-	idcliente=models.CharField(max_length=150, null=True, blank=True)
+	idcliente=models.CharField(max_length=150, null=True, blank=True, unique=True)
 	fecha_poliza = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
 	tpersona = models.CharField(max_length=150, blank=True, null=True)
 	ecivil = models.CharField(max_length=150, blank=True, null=True)
@@ -82,10 +82,10 @@ class Poliza(models.Model):
 	apertura = models.CharField(max_length=150, blank=True, null=True)
 	cis = models.CharField(max_length=150, blank=True, null=True)
 	cliente = models.ForeignKey(Cliente, related_name='poliza_cliente', blank=True, null=True)
-	daños = models.CharField(max_length=150, blank=True, null=True)
+	danhos = models.CharField(max_length=150, blank=True, null=True)
 	empresa = models.CharField(max_length=150, blank=True, null=True)
 	financiamiento = models.CharField(max_length=150, blank=True, null=True)
-	idpoliza = models.CharField(max_length=150, blank=True, null=True)
+	idpoliza = models.CharField(max_length=150, blank=True, null=True, unique=True)
 	importe = models.CharField(max_length=150, blank=True, null=True)
 	newaddress = models.CharField(max_length=150, blank=True, null=True)
 	next = models.CharField(max_length=150, blank=True, null=True)
@@ -95,6 +95,7 @@ class Poliza(models.Model):
 	subrama = models.CharField(max_length=150, blank=True, null=True)
 	modalidad = models.CharField(max_length=150, blank=True, null=True)
 	last = models.CharField(max_length=150, blank=True, null=True)
+	creacion = models.DateTimeField(auto_now_add=True, db_index=True,blank=True, null=True)
 	def __str__(self):
 		return '{}Poliza #{}'.format(self.id, self.idpoliza)
 

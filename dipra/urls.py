@@ -2,9 +2,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from main import urls as mainURLs
 from rest_framework import routers
-from polizas.views import PolizaViewset, ClienteViewset, PolizaList, VehiculoViewset, VehiculosPoliza, PolizasCliente, ReciboViewset, ProspectoViewset
+from polizas.views import PolizaViewset, ClienteViewset, PolizaList, VehiculoViewset, VehiculosPoliza, PolizasCliente, ReciboViewset, ProspectoViewset, AdminPolizaViewset
 from accounts import urls as accountsURLs
-from accounts.views import ProfileViewset, AsesoresList, PerfilesViewSet, match_client
+from accounts.views import ProfileViewset, AsesoresList, PerfilesViewSet, match_client, match_asesor
 from asesores.views import AsesorViewset, AsesorViewsetList
 
 
@@ -20,12 +20,14 @@ router.register(r'perfiles',PerfilesViewSet)
 router.register(r'prospectos', ProspectoViewset)
 router.register(r'candidatos', AsesorViewset)
 router.register(r'candidatoslist', AsesorViewsetList)
+router.register(r'adminpolizas', AdminPolizaViewset)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^api/', include(router.urls)),
 	url(r'^api/match', match_client),
+	url(r'^api/asesormatch', match_asesor),
 	url(r'^api/asesores/', AsesoresList.as_view()),
 	url(r'^api/mispolizas',PolizasCliente.as_view()),
 	url(r'^api/vehiculospoliza/(?P<id>\d+)/$', VehiculosPoliza.as_view()),

@@ -12,6 +12,7 @@ from .models import Profile
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from polizas.models import Cliente
+from asesores.models import Asesor
 
 
 
@@ -122,6 +123,20 @@ def match_client(request):
 		
 
 		return Response({"message": "Macheado el cliente", "data": request.data})
+	return Response({"message": "Hello, world!"})
+
+@api_view(['GET', 'POST'])
+def match_asesor(request):
+	if request.method == 'POST':
+		print(request.data)
+		print(request.user)
+		asesor = Asesor.objects.get(id_asesor=request.data['asesorId'])
+		asesor.usuario = request.user
+		
+		asesor.save()
+		
+
+		return Response({"message": "Macheado el asesor", "data": request.data})
 	return Response({"message": "Hello, world!"})
 
 

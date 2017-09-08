@@ -21,16 +21,19 @@ class OwnerMixin(object):
         #return qs
 
 
+from rest_framework.pagination import LimitOffsetPagination
 
 class PolizaViewset(OwnerMixin, viewsets.ModelViewSet):
     queryset = Poliza.objects.all()
     serializer_class = PolizaSerializer
     permission_classes = [permissions.IsAuthenticated,]
+    
 
 class PolizaList(OwnerMixin, viewsets.ModelViewSet):
     queryset = Poliza.objects.all()
     serializer_class=PolizaRelatedSerializer
     permission_classes = [permissions.IsAuthenticated,]
+    pagination_class = LimitOffsetPagination
 
 
 class VehiculoViewset(viewsets.ModelViewSet):

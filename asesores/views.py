@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Asesor
-from .serializers import AsesorSerializer, AsesorSerializerList
+from .models import Asesor, Archivo, Cita, Clave, Curso
+from .serializers import AsesorSerializer, AsesorSerializerList, ArchivoSerializer, CitaSerializer, ClaveSerializer, CursoSerializer
+from rest_framework.generics import ListAPIView
 # Create your views here.
 
 
@@ -22,5 +23,33 @@ class AsesorViewset(OwnerMixin, viewsets.ModelViewSet):
 class AsesorViewsetList(OwnerMixin, viewsets.ModelViewSet):
 	queryset = Asesor.objects.all()
 	serializer_class = AsesorSerializerList
+
+class ArchivoViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Archivo.objects.all()
+    serializer_class = ArchivoSerializer
+
+class CitaViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Cita.objects.all()
+    serializer_class = CitaSerializer
+
+class ClaveViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Clave.objects.all()
+    serializer_class = ClaveSerializer
+
+class CursoViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+class ArchivosAsesorViewset(ListAPIView):
+    queryset = Archivo.objects.all()
+    serializer_class = ArchivoSerializer
+
+    def get_queryset(self):
+        print(self.request.data)
+        print(self.kwargs['id'])
+        asesor=Asesor.objects.get(id=self.kwargs['id'])
+        
+        qs = super(ArchivosAsesorViewset, self).get_queryset()        
+        return qs.filter(asesor=asesor)
 
 

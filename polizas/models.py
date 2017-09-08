@@ -76,6 +76,8 @@ class Cliente(models.Model):
 
 class Poliza(models.Model):
 
+	emisor = models.CharField(max_length=100,null=True, blank=True)
+	carpeta = models.CharField(max_length=100,null=True, blank=True)
 	asesor = models.ForeignKey(User, related_name="asesor_poliza", blank=True, null=True)
 	addaddress = models.BooleanField(blank=True, default=False)
 	agrupacion = models.CharField(max_length=150, blank=True, null=True)

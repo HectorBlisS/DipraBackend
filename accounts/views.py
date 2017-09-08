@@ -131,7 +131,7 @@ def match_asesor(request):
 		print(request.data)
 		print(request.user)
 		asesor = Asesor.objects.get(id_asesor=request.data['asesorId'])
-		asesor.usuario = request.user
+		asesor.user = request.user
 		
 		asesor.save()
 		

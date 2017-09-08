@@ -18,8 +18,8 @@ class Profile(models.Model):
 	user = models.OneToOneField(User, related_name='profile')
 	photo = models.URLField(max_length=500, blank=True, null=True)
 	tipo = models.CharField(max_length=100, choices=TIPOS, default="general" )
-	asesorId = models.CharField(max_length=100, blank=True, null=True)
-	clienteId = models.CharField(max_length=100, blank=True, null=True)
+	asesorId = models.CharField(max_length=100, blank=True, null=True, unique=True)
+	clienteId = models.CharField(max_length=100, blank=True, null=True, unique=True)
 	aprobado = models.BooleanField(default=False)
 
 

@@ -12,7 +12,7 @@ class Asesor(models.Model):
 	telefono = models.CharField(max_length=100, blank=True, null=True)
 	correo = models.CharField(max_length=100, blank=True, null=True)
 	tipo = models.CharField(max_length=100, blank=True, null=True)
-	fecha_reclutamieto = models.CharField(max_length=100, blank=True, null=True)
+	fecha_reclutamiento = models.CharField(max_length=100, blank=True, null=True)
 	candidato = models.BooleanField(default=True)
 	status = models.CharField(max_length=100, blank=True, null=True)
 	tarjetas = models.IntegerField(blank=True, null=True)	

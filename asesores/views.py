@@ -16,6 +16,7 @@ class OwnerMixin(object):
         #return qs
 
 
+
 class AsesorViewset(OwnerMixin, viewsets.ModelViewSet):
 	queryset = Asesor.objects.all()
 	serializer_class = AsesorSerializer
@@ -28,18 +29,6 @@ class ArchivoViewset(OwnerMixin, viewsets.ModelViewSet):
     queryset = Archivo.objects.all()
     serializer_class = ArchivoSerializer
 
-class CitaViewset(OwnerMixin, viewsets.ModelViewSet):
-    queryset = Cita.objects.all()
-    serializer_class = CitaSerializer
-
-class ClaveViewset(OwnerMixin, viewsets.ModelViewSet):
-    queryset = Clave.objects.all()
-    serializer_class = ClaveSerializer
-
-class CursoViewset(OwnerMixin, viewsets.ModelViewSet):
-    queryset = Curso.objects.all()
-    serializer_class = CursoSerializer
-
 class ArchivosAsesorViewset(ListAPIView):
     queryset = Archivo.objects.all()
     serializer_class = ArchivoSerializer
@@ -51,5 +40,21 @@ class ArchivosAsesorViewset(ListAPIView):
         
         qs = super(ArchivosAsesorViewset, self).get_queryset()        
         return qs.filter(asesor=asesor)
+
+class CitaViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Cita.objects.all()
+    serializer_class = CitaSerializer
+
+class ClaveViewset(viewsets.ModelViewSet):
+    queryset = Clave.objects.all()
+    serializer_class = ClaveSerializer
+
+class CursoViewset(OwnerMixin, viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+
+#
+
 
 

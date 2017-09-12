@@ -9,10 +9,12 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from .models import Profile
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from polizas.models import Cliente
 from asesores.models import Asesor
+from polizas.views import PolizaPaginator
 
 
 
@@ -99,9 +101,19 @@ class SelfProfile(views.APIView):
 class AsesoresList(ListAPIView):
 	queryset=User.objects.all()
 	serializer_class=UserSerializer
-	def get_queryset(self):
+	pagination_class = PolizaPaginator
+	def get_queryset(self, *args, **kwargs):
 		qs = super(AsesoresList, self).get_queryset()
-		return qs.filter(profile__aprobado=True) 
+		
+		query = self.request.GET.get("q")
+		queryset_list = qs.filter(profile__aprobado=True) 
+		if query:
+			queryset_list = queryset_list.filter(
+				Q(profile__asesorId__icontains=query)|
+				Q(username__icontains=query)
+				)
+		return queryset_list
+
 
 class PerfilesViewSet(viewsets.ModelViewSet):
 	queryset=Profile.objects.all()

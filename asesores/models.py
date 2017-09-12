@@ -37,9 +37,15 @@ class Archivo(models.Model):
 		return self.nombre
 
 class Cita(models.Model):
+	CHOICES=(
+		('espera','espera'),
+		('si','si'),
+		('no', 'no'),
+		)
 	asesor = models.ForeignKey(Asesor, related_name="cita_asesor", blank=True, null=True)
 	fecha = models.CharField(max_length=100, blank=True, null=True)
 	comentarios = models.TextField(blank=True, null=True)
+	status = models.CharField(choices=CHOICES, default='espera', max_length=100, blank=True, null=True)
 
 	def __str__(self):
 		return 'cita del dia {}'.format(self.fecha)
@@ -51,6 +57,7 @@ class Clave(models.Model):
 	fecha_inicio = models.CharField(max_length=100, blank=True, null=True)
 	fecha_final = models.CharField(max_length=100, blank=True, null=True)
 	tipo = models.CharField(max_length=100, blank=True, null=True)
+	nombre = models.CharField(max_length=100, blank=True, null=True)
 
 	def __str__(self):
 		return self.clave
@@ -58,6 +65,10 @@ class Clave(models.Model):
 class Curso(models.Model):
 	asesor = models.ForeignKey(Asesor, related_name="curso_asesor", blank=True, null=True)
 	nombre = models.CharField(max_length=100, blank=True, null=True)
+	tipo = models.CharField(max_length=100, blank=True, null=True)
+	fechaI = models.CharField(max_length=100, blank=True, null=True)
+	fechaF = models.CharField(max_length=100, blank=True, null=True)
+
 
 	def __str__(self):
 		return self.nombre

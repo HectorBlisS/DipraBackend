@@ -37,7 +37,7 @@ urlpatterns = [
 	url(r'^api/asesores/', AsesoresList.as_view()),
 	url(r'^api/mispolizas',PolizasCliente.as_view()),
 	url(r'^api/vehiculospoliza/(?P<id>\d+)/$', VehiculosPoliza.as_view()),
-	url(r'^api/archivosasesor/(?P<id>\d+)/$', ArchivosAsesorViewset.as_view()),
+	url(r'^api/archivosasesor/(?P<id>\d+)/$', ArchivosAsesorViewset.as_view()), 
 	url(r'^auth/', include(accountsURLs)),
     url(r'^', include(mainURLs)),
     url(

@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework.generics import ListAPIView
+from django.db.models import Q
+    
 from django.contrib.auth.models import User
 from .serializers import PolizaSerializer, ClienteSerializer, PolizaRelatedSerializer, VehiculoSerializer, VehiculoSerializer2, ReciboSerializer, ProspectSerializer, PolizaAdmin
 from .models import Poliza, Cliente, Vehiculo, Recibo, Prospecto
@@ -9,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.core import serializers
+from rest_framework.generics import ListAPIView
 
 
 class OwnerMixin(object):
@@ -21,16 +23,39 @@ class OwnerMixin(object):
         #return qs
 
 
+from rest_framework.pagination import PageNumberPagination
+
+class PolizaPaginator(PageNumberPagination):
+    page_size = 10
+    page_size_query_params = 'page_size'
+    max_page_size = 30
 
 class PolizaViewset(OwnerMixin, viewsets.ModelViewSet):
     queryset = Poliza.objects.all()
     serializer_class = PolizaSerializer
     permission_classes = [permissions.IsAuthenticated,]
+    
 
 class PolizaList(OwnerMixin, viewsets.ModelViewSet):
     queryset = Poliza.objects.all()
     serializer_class=PolizaRelatedSerializer
     permission_classes = [permissions.IsAuthenticated,]
+    pagination_class = PolizaPaginator
+
+    def get_queryset(self, *args, **kwargs):
+        query = self.request.GET.get("q")
+        
+        queryset_list = super(PolizaList,self).get_queryset()
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(emisor__icontains=query)|
+                Q(carpeta__icontains=query)|
+                Q(idpoliza__icontains=query)|
+                Q(asesor__username__icontains=query)|
+                Q(cliente__idcliente__icontains=query)|
+                Q(asesor__asesor_user__id_asesor__icontains=query)
+                )
+        return queryset_list
 
 
 class VehiculoViewset(viewsets.ModelViewSet):
@@ -62,7 +87,18 @@ class PolizasCliente(ListAPIView):
 class ClienteViewset(OwnerMixin, viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
+    pagination_class = PolizaPaginator
     #permission_classes = [permissions.IsAuthenticated,]
+    def get_queryset(self, *args, **kwargs):
+        query = self.request.GET.get("q")
+        queryset_list = super(ClienteViewset, self).get_queryset()
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(idcliente__icontains=query)|
+                Q(pnombre__icontains=query)|
+                Q(rsocial__icontains=query)
+                )
+        return queryset_list
 
 class ReciboViewset(viewsets.ModelViewSet):
     queryset = Recibo.objects.all()

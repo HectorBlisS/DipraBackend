@@ -21,9 +21,9 @@ class Profile(models.Model):
 	asesorId = models.CharField(max_length=100, blank=True, null=True, unique=True)
 	clienteId = models.CharField(max_length=100, blank=True, null=True, unique=True)
 	aprobado = models.BooleanField(default=False)
-	jefe = models.BooleanField(default=True)
-	analista = models.BooleanField(default=True)
-	reclutador = models.BooleanField(default=True)
+	jefe = models.BooleanField(default=False)
+	analista = models.BooleanField(default=False)
+	reclutador = models.BooleanField(default=False)
 
 
 	def __str__(self):

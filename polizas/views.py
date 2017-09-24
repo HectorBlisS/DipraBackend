@@ -26,7 +26,7 @@ class OwnerMixin(object):
 from rest_framework.pagination import PageNumberPagination
 
 class PolizaPaginator(PageNumberPagination):
-    page_size = 1
+    page_size = 2
     page_size_query_params = 'page_size'
     max_page_size = 30
 
